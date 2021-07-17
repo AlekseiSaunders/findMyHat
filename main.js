@@ -14,25 +14,35 @@ class Field {
     this.charY = 0;
 
   }
+    generateField(height, width, percent){
+    let fieldRow = [];
+    let tile = '';
+    for(let i = 0; i <= height; i++){
+      let fieldCol = [];
+      for(let j = 0; j < width; j++){
+        function genTile(){
+          let num = (Math.floor(Math.random() * 10) + 1 );
+          if(num < (100 - percent) / 10){
+            tile = '░';
+          } else {
+            tile = 'O';
+          }
+        }
+        genTile();
+        fieldCol.push(tile)
+      };
+      fieldRow.push(fieldCol);
+    }
+    fieldRow[0][0] = "^"
+     console.log(fieldRow);
+    }
+    
   print() {
     for (let row of this.field) {
       console.log(row.join(''));
     }
   }
-  get xPos() {
-    return this.charX;
-  }
-  get yPos() {
-    return this.charY;
-  }
-  set xPos(num) {
-    this.xPos = this.xPos + num;
-    return this.xPos;
-  }
-  set yPos(num) {
-    this.yPos = this.yPos + num;
-    return this.yPos;
-  }
+  
   moveX(num) {
     this.charX = this.charX + num;
     return this.charX;
@@ -123,8 +133,5 @@ const myField = new Field([
     fieldChar,
   ],
 ]);
-// myField.print();
-// let move = prompt(
-//   'Which direction would you like to move? r=right, l=left, u=up, and d=down '
-// );
+
 myField.play();
